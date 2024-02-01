@@ -1,0 +1,25 @@
+{
+  "useTabs": false,
+
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "printWidth": 120,
+        "proseWrap": "always",
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": ["*.js"],
+      "options": {
+        "semi": true,
+        "singleQuote": true,
+        "printWidth": 120,
+        "proseWrap": "always",
+        "trailingComma": "es5",
+        "tabWidth": 4
+      }
+    }
+  ]
+}
