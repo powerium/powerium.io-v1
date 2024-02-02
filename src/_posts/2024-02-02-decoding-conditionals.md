@@ -2,6 +2,7 @@
 title: >-
   Decoding Conditionals: A Dive into `if-else`, `switch`, Lookup Tables, and
   Interfaces
+authors: [powersagitar, adrian]
 categories: [Programming, Software Design]
 tags: [fundamentals, c++]
 ---
