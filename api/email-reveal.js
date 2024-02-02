@@ -19,9 +19,9 @@ export default async function revealEmail(req, res) {
 
     if (outcome.success && outcome.action === expectedAction) {
         res.status(200).send({ success: true, email: process.env.CONTACT_EMAIL });
-        console.error("Reveal email failed: CF Turnstile succeeds but action doesn't match expected action");
     } else if (outcome.action !== expectedAction) {
         res.status(403).send({ success: false, error: `Actual action does not match expected action` });
+        console.error("Reveal email failed: CF Turnstile succeeds but action doesn't match expected action");
     } else {
         res.status(500).send({ success: false, error: 'Internal server error' });
         console.error(`Reveal email failed: CF Turnstile failed: ${outcome['error-codes']}`);
