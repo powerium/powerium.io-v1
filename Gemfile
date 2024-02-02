@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
-
 gem "jekyll-theme-chirpy", git: "https://github.com/powerium/jekyll-theme-powerium.git"
+
+source "https://rubygems.org"
 
 group :test do
   gem "html-proofer", "~> 4.4"

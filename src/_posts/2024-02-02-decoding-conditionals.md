@@ -2,6 +2,7 @@
 title: >-
   Decoding Conditionals: A Dive into `if-else`, `switch`, Lookup Tables, and
   Interfaces
+authors: [powersagitar, adrian]
 categories: [Programming, Software Design]
 tags: [fundamentals, c++]
 ---
@@ -50,48 +51,44 @@ choice in scenarios where conditions do not require a fallback logic.
 
 ## Exploring `switch` Cases
 
-Next, let's delve into `switch` statements. As described by
-[Wikipedia contributors](<https://en.wikipedia.org/wiki/Conditional_(computer_programming)>):
+Next, let's delve into `switch` cases.
 
-> Switch statements (in some languages, _case statements_ or multiway branches)
-> compare a given value with specified constants and take action according to
-> the first constant to match. There is usually a provision for a default action
-> ('else', 'otherwise') to be taken if no match succeeds. Switch statements can
-> allow compiler optimizations, such as lookup tables. In dynamic languages, the
-> cases may not be limited to constant expressions, and might extend to pattern
-> matching...
+Once again,think about `switch`'s semantic meaning first. The `switch` statement
+evaluates a given expression and, based on the evaluated value, it executes the
+associated statements. It provides an easy way to dispatch execution to
+different parts of code based on the value of the expression.
 
-To illustrate how `switch` statements are compiled differently from `if-else`
-statements, consider the following assembly code:
+We have to agree that `switch` cases may work similar to `if` statements under
+the hood, both generating a lookup table for the conditions, when they are
+simple and involve checking a variable against a range of values. However, it's
+also worth noting that this type of optimizations is highly dependent on the
+specific compiler and the nature of the conditions, and is more commonly
+associated with `switch` statements.
 
-> Compiler: x86-64 gcc 13.2
->
-> Optimization: -O0
+For instance,`x86-64 gcc 13.2` conducts such optimization when the flag is set
+to `-O3`.
 
-<iframe width="100%" height="600px" style="border: none;" src="https://godbolt.org/e?hideEditorToolbars=true#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGe1wAyeAyYAHI%2BAEaYxCAAzBqkAA6oCoRODB7evnrJqY4CQSHhLFEx8baY9vkMQgRMxASZPn5cFVXptfUEhWGR0XEJCnUNTdmtQ109xaUDAJS2qF7EyOwcAG6oeOgA1NiqmMheBJgQs9smAOxWFwAiJhoAgvcPG1vbAGJeDMhCAO6EyAQEGCBG2eDOlysj22MO2Cn%2BBEBwIhV2esPR21ESm2XBA52hGMJewORxOsxMsShD0JhIixEwTAA1hSqTTMUxsWY8Wi2bDiYdjqcWTzeds6QzmZSRRisZhtrFuQTRfzSUKpUreeKmcKNejZdtJIrqaLdvsBWSdcbRVrJayaQB6e3s7EAViNbMdGJVgvJ6qtGM96JtlvRlzujzDz2erx2n2%2BAEkqMDBGCUXaYXgqITgedYnc8zi06aST6WedbtLKtjM9scxT8zdtmYi96LZTy%2BH/VW5TW63n6/KW2bVb6LB3K7Rq1m%2Bw2DUOS22x5GNZ7u2Dp3hc7OXfPzWqlxWI4eHhx5rROC7eH4OFpSKhOG5rNY4YtlnLzLEeKQCJpT/NGSALoJOeHCSFev53pwvAKCACQ/jep6kHAsBIGgLCJHQ0TkJQaEYfQMTAFwsRmHwdDHMQMEQBEEERME9QAJ6cF%2BtHMMQ9EAPIRNoBzwV%2BaFsII7EMLQjEIaQWARF4wBuGIk5MbwWAsIYwDiGJ%2BD0g4eBrJgMFiZgw7HPJ5CCJUEG0HgdIMR4WAQQQxB4Cw8nzFQBjAAoABqeCYL87GJIwRn8IIIhiOwUgyIIigqOoYm6K0BhGCgT6WPoFkwZA8yoIk1S6QAtOxt6oNpxD2VgaWnG0PHpC4DDuJ4zT%2BDVUx9DErS5GkAijC0SQpO1DBNSU/TjJUlUCJ0Ix1WMFWaaNwzdMEvQDS1tizZ1egTA0/UzFw8wKK%2BKwSGeF7gWJ94cNsqgABwAGw5VdkjbMAyDIDisQAHRmLWuCECQ5xmJ%2Bsy8PBWizP%2BgHAZwYGkNeBVQbYsHfr%2BIP6JwZjHTDHCA4j8xFakziSEAA%3D%3D%3D"></iframe>
+<iframe width="100%" height="600px" src="https://godbolt.org/e#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIM6SuADJ4DJgAcj4ARpjEIADM8aQADqgKhE4MHt6%2B/ilpGQIhYZEsMXGJtpj2jgJCBEzEBNk%2BfgF2mA6Z9Y0ExRHRsQlJCg1NLbntY32hA2VDiQCUtqhexMjsHABuqHjoANQAYl4MXQJcEIsm8VYaAII7e0cnZwxml9e3D7sHx6e1DHiHxuJnuj1%2BLwBkmBX3Bz3%2BmQArDDQXdUXCAPLJWJMAEAdUICCEAHdCMgEBBQgR9qpFvsTAB2L77Fn7BSkgjk/YQWn0pmo1mC/aiJT7LggAVCqV/V4XK4g%2B5SqVRYiYJgAa0%2BkqlIsw%2BzMEsVSsFMoB73lzONrJVas1Cruxt1%2B3ihodVpZpsyQIt2qtNo1WqNOqYoskrvdHshmWhPqDftVAftjpDesR4YjnoEyNjbvd/rtlpZjIAIqiS2WwT99licfjCQBJKjYWhKSmCGl0xmF/Z4KhSnn0%2BKlodiumZhhywO5/bVUW97mqQfD4v6sdRgTmqeC2d6%2BcD67L51rhECb1b1k7nt9/dDg/7STH14x88sy97xcHu%2BIx8A7NTkscMstCcIivB%2BBwWikKgnBuNY1hsqs6x6uY8Q8KQBCaIByzqiAiIaAAdBokhmBoAAcACcABsZhSBoXCIuR%2BicJIvAsBIGgaKQ4GQdBHC8AoICcRhEGAaQcCwEgaAsMkdCxOQlBSTJ9BxMAXDxAENC0AQsQCRAUSYaQUShI0ACenBoUZzDECZGJRNonTCWhUlsIIGIMLQZkiaQWBRF4wBuGILbmbwWAsIYwDiF5%2BCql0WyYAJXmYKonReNpwXkII1QGbQeAqqZHhYAZBDEHgbHcKJVAGMACgAGp4JgxI1uBaH8IIIhiOwUgyIIigqOoXm6Fw%2BjhSgcGWPouUCZAyyoMkAIJQAtBi8S8KgcXECVWBTZcVQ1JkLgMO4nitHowSzKU5R6Kk6QAhMfhDddhQMP0F1DENHSvD04zHbk73VA53TTC9gxxO90x3Xooy9MD8yg8sCiIRsEhASBYEGbxNKkZRC2UZI%2BzAMgyBivE%2BFmNyuCECQ9JmKhiy8MJWiLNhICSOR%2BHkYiDLkVwGjxAypEMaRkhJMBHAsaQbE85x3GrZw/GCehmFM0xHBmGjXm8fTSvLOt6TOJIQA"></iframe>
 
-At first glance:
+And `x86 msvc v19.38` doesn't, when the flag is set to `/O2`.
 
-- When the number of branches is small (less than 5), the performance difference
-  between `switch` and `if-else` is negligible. The generated assembly for both
-  is almost identical, comparing each value against the constant values. In this
-  scenario, `switch` statements are behaving similarly to `if-else` statements.
+<iframe width="100%" height="600px" src="https://godbolt.org/e#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIM6SuADJ4DJgAcj4ARpjEIADM8aQADqgKhE4MHt6%2B/ilpGQIhYZEsMXGJtpj2jgJCBEzEBNk%2BfgF2mA6Z9Y0ExRHRsQlJCg1NLbntY32hA2VDiQCUtqhexMjsHABuqHjoANQAYl4MXQJcEIsm8VYaAII7e0cnZwxml9e3D7sHx6e1DHiHxuJnuj1%2BLwBkmBX3Bz3%2BmQArDDQXdUXCAPLJWJMAEAdUICCEAHdCMgEBBQgR9qpFvsTAB2L77Fn7BSkgjk/YQWn0pmo1mC/aiJT7LggAVCqV/V4XK4g%2B5SqVRYiYJgAa0%2BkqlIsw%2BzMEsVSsFMoB73lzONrJVas1Cruxt1%2B3ihodVpZpsyQIt2qtNo1WqNOqYoskrvdHshmWhPqDftVAftjpDesR4YjnoEyNjbvd/rtlpZjIAIqiS2WwT99licfjCQBJKjYWhKSmCGl0xmF/Z4KhSnn0%2BKlodiumZhhywO5/bVUW97mqQfD4v6sdRgTmqeC2d6%2BcD67L51rhECb1b1k7nt9/dDg/7STH14x88sy97xcHu%2BIx8A7NTkscMstCcIivB%2BBwWikKgnBuNY1hsqs6x6uY8Q8KQBCaIByzqiAiIaAAdBokhmBoAAcACcABsZhSBoXCIuR%2BicJIvAsBIGgaKQ4GQdBHC8AoICcRhEGAaQcCwEgaAsMkdCxOQlBSTJ9BxFsyDJMkAD6WxcORGnxKRGmqKRlF8HQBCxAJEBRJhpBRKEjQAJ6cGhdnMMQDkYlE2idMJaFSWwggYgwtBOSJpBYFEXjAG4Ygts5vBYCwhjAOIYX4KqXRbJgAlhZgqidF45nxeQgjVDZtB4CqjkeFgNkEMQeBsdwolUAYwAKAAangmDEjW4FofwggiGI7BSDIgiKCo6hhboXD6MlKBwZY%2BiVQJkDLKgyQAgJAD0GIBKgWXEA1WBrZcVQ1JkLgMO4nitHowSzKU5R6Kk6QAhMfhzW9hQMP0z1DHNHSvD04x3bkQPVD53TTP9gxxED0yfXooy9HD8wI8sCiIRsEhASBYE2bxNLGfsLAKKp%2BzaeR%2BH6dyuCECQ9JmKhiy8MJWiLNhICSDT5GIgy5FcBo8QMqRDGkZISTARwLGkGxwucdxvC8fxgnoZhXNMRwZiE2FqsayJWtHekziSEAA"></iframe>
 
-However, at the time the fifth branch gets uncommented, interesting things
-occur:
+{: .prompt-info }
 
-- The compiler now generates a lookup table (`.L5`) for the `switch` statement.
+> GCC -O3 enables nearly all optimizations that don't involve a space-speed
+> tradeoff.  
+> MSVC /O2 enables optimizations for maximum speed.
 
-- The new `switch` statement is compiled to a simple lookup (line 15) and jump
-  (line 16) with a constraint check (line 12), which reduces the time complexity
-  from `O(n)` to `O(1)`.
+In general, it's best to choose between these two based on their semantic
+meanings, and let the compiler handle the optimizations:
 
-- The `if-else` statement continues to compare each value against the constant
-  values, as it initially did.
+- `if` statements are best used when the branches have hierarchical
+  relationships.
 
-Impressively, `switch` statements receive a significant performance boost!
-Therefore, `switch` statements might be our choice when the branches don't have
-hierarchical relationships, and the number of branches is large.
+- `switch` statements are ideal when the branches don't have hierarchical
+  relationships, and different actions are taken based on different conditions
+  but not in a fallback manner.
 
 ## Embracing Lookup Tables
 
