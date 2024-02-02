@@ -61,7 +61,8 @@ Next, let's delve into `switch` statements. As described by
 > cases may not be limited to constant expressions, and might extend to pattern
 > matching...
 
-While `switch` statements might seem very different from `if-else` statements, they work similarly under the hood.
+While `switch` statements might seem very different from `if-else` statements,
+they work similarly under the hood.
 
 > Compiler: x86-64 gcc 13.2
 >
@@ -70,16 +71,18 @@ While `switch` statements might seem very different from `if-else` statements, t
 <iframe width="800px" height="200px" src="https://godbolt.org/e#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIMwCspK4AMngMmAByPgBGmMT%2BGqQADqgKhE4MHt6%2B/kGp6Y4CYRHRLHEJZkl2mA6ZQgRMxATZPn6Btpj2RQwNTQQlUbHxibaNza25HQrjA%2BFD5SNVAJS2qF7EyOwc5gDM4cjeWADUJrtuyDP4gmfYJhoAgvcP4QTHVF4MdQJcEMtnVker3en2%2BDDMfwBz2BHy%2BPV2kN2gJeghBcMykkRyOhqNQyXiTB6AH0AO6EBBEhRkgjIBAQYGqZanADsyOO7OOVMItIgjJZbI5gtESmOXBAz0Fko5sLBv3%2BSIlUslMWImCYAGsoY8lcdhZhjmZxdqddLQT0IfKBSbjiq1ZqFcapXrjrsjQ9reyZfCsYrrbaNVr3UrnZI3R60WDMZbfSb/farSyACLPEzM5OPZ5eV4ADiJbzxBOJ1IpeCoRK6SggWcEubefNTCdLvNOu2TrdFTK9mTlgcFFf1TdULbbiYNnbNmQtvY5/eOg%2BHZ1Hu3H6IECOjjuOs/ni8Xx0kK8jPozaY4q1onACvD8HC0pFQnDc1msnPWm31ex4pAImjPq3VIABBoAB0GiSFU2YAJwAGxmFIGhcAEkH6Jwki8CwEgaEkN53g%2BHC8AoIBJD%2Bt5nqQcCwEgaAsMkdDxOQlDUbR9AJMAXC7GYfB0AQ8SERAMS/qQMThE0ACenBfsJzDEKJADyMTaLUJFftRbCCLJDC0OJpGkFgMReMAbhiLQhHcLwWAsIYwDiDp%2BCqnUABumCmXemCqLUXg8RJvCvF0gm0HgKpiR4WCCQQxB4BhZmrFQBjAAoABqeCYCSsn4jeX78IIIhiOwUgyIIigqOoOm6Fw%2BhWSgz6WPogWEZAqx4j0pkALSybsvCoE5xARVg9V/J03SZC4DDuJ4bR6KE8xlBUegFBkAiTH45XzT0gwzSM5U1GCfQTONuRbV0Sn1LM63DAkW2zEtegzP0Z2LBdqwKG%2BWwSOel7XoJeHHKo2bQS10GSMcwDIMgoq7MBZjHBAuCECQpxmLsXDLLwJFaMs/4gJIkHAZBATMpBXAaLszLZkh2aSLsKEcGhpAYUT2FfZwBFEd%2Bv4Y9TZifTpeGo%2BzqzdekziSEAA%3D%3D"></iframe>
 
 When the number of branches is small (less than 5), the performance difference
-between `switch` and `if-else` is negligible. The generated assembly for both
-is identical, comparing each value against the constant values. In this
-scenario, `switch` statements are behaving similarly to `if-else` statements.
+between `switch` and `if-else` is negligible. The generated assembly for both is
+identical, comparing each value against the constant values. In this scenario,
+`switch` statements are behaving similarly to `if-else` statements.
 
 However, consider this next snippet:
 
 <iframe width="800px" height="200px" src="https://godbolt.org/e#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIAMz%2BpK4AMngMmAByPgBGmMQBQQAOqAqETgwe3r6JpClpjgJhEdEscQmBtpj2hQxCBEzEBFk%2BfpV2mA4Z9Y0ExVGx8bkKDU0tOe2jfeEDZUOBAJS2qF7EyOwc5v7hyN5YANQm/m7II/iCR9gmGgCC1zfhBPtUXgxdAlwQC0dWt4/Pr3eDDMXx%2B93%2BLzetX8oP8vweggBUIyklh8IhgNqAFY0fdwYjUEl4kxagB9ADuhAQpIUlIIyAQEH%2BqgWhwA7PD9lz9rTCAyICz2ZzuSLREp9lwQPcRTLuZCgZ9vnDpbKZTFiJgmABrMG3VX7MWYfZmKV6/VyzEZEFK4Xm/bqzU65Vm2WG/b%2BU03O1c%2BXQ3Eu80O7W6r2qt2ST3epFA1E2lV2oNO20yt1YyPe30ZHFxgMmNkAETxBbxty8jwAHKSnoTiWS6dS8FRSdUlBAy4JK09BXnk42BYd/IXBxLWZmPv7Q1yW0a%2B6oB0P88bR5aBNaQyLp/tZ/Ojov/MvkQIYTnJ/tN9vd7v9pIDzGJxvaOKL4Or1jb9iJ3n8xwlrROFjeD8DgtFIVBODcaxrB5FY1iNLYeFIAhNB/JYtRALENAAOg0SQzA0csAE4ADYzCkDQuCxAj9E4SReBYCQNA0UggJAsCOF4BQQCYpDgJ/Ug4FgJA0BYJI6HichKGE0T6ASYAuH8Mw%2BDoAh4k4iAYmQ0gYnCRoAE9OAQ7TmGIXSAHkYm0ToeIQ4S2EEUyGFofTeNILAYi8YA3DER8DN4LAWEMYBxBc/ANS6AA3TBOJczBVE6LwVN88hBGqTTaDwdU9I8LBNIIYg8Ho7g%2BKoAxgAUAA1PBMHJUyiSAhD%2BEEEQxHYKQZEERQVHUFzdC4fRApQSDLH0DLOMgJZCVqaKAFpTP8XhUEi4h8qwMaviqGoMhcBh3E8Vo9FCGZSnKPR8nSARxj8PqztqfpjqGPqOiBHoxj2nJHuqKzuimO7BgSR6pkuvQRl6X65n%2BpYFBg9YJF/f9AM0tj9lUcsiOmojJH2YBkGQCV/Ewsx9ggXBCBIQ4zH8LgFl4HitAWVCQEkAjMIIrE2QIrgNH8Nly0o8tJCCP8OFo0h6M5piWIWzgOK4xDkPp6iODMBGXLYmn5aWJa0mcSQgA%3D"></iframe>
 
-The compiler now generates a lookup table (`.L4` for the `switch`, `.L14` for the `if-else`) for both statements. As you can see, the compiler
-was able to determine that the two constructs have the same behavior, and thus optimized both into lookup tables.
+The compiler now generates a lookup table (`.L4` for the `switch`, `.L14` for
+the `if-else`) for both statements. As you can see, the compiler was able to
+determine that the two constructs have the same behavior, and thus optimized
+both into lookup tables.
 
 ## Embracing Lookup Tables
 
