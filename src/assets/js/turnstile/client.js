@@ -10,6 +10,7 @@ window.onloadTurnstileCallback = function () {
     turnstile.render(turnstileContainer, {
         sitekey: sitekey,
         action: 'email-reveal',
+        size: 'compact',
         callback: async function (token) {
             const response = await fetch('/api/email-reveal', {
                 method: 'POST',
@@ -27,6 +28,8 @@ window.onloadTurnstileCallback = function () {
                 const notice = `Failed to retrieve email address: ${result.error}`;
                 emailAnchor.href = `javascript:alert('${notice}');`;
             }
+
+            turnstileContainer.style.display = 'none';
         },
     });
 };

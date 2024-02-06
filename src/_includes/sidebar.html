@@ -42,6 +42,8 @@
     </ul>
   </nav>
 
+  {% include body-turnstile.html %}
+
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
       <button type="button" class="mode-toggle btn" aria-label="Switch Mode">
@@ -51,9 +53,7 @@
       <span class="icon-border"></span>
     {% endunless %}
 
-    {% include body-turnstile.html %}
-
-    <a id="contact-email" href="javascript:alert('Loading...')" aria-label="email">
+    <a id="contact-email" href="javascript:alert('Please wait for Turnstile verification to complete')" aria-label="email">
       <i class="fas fa-envelope"></i>
     </a>
 
