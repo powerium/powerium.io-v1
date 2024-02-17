@@ -1,7 +1,7 @@
 # Bundler cache
 .bundle
 vendor
-Gemfile.lock
+# Gemfile.lock
 
 # Jekyll cache
 .jekyll-cache
@@ -17,10 +17,10 @@ package-lock.json
 # IDE configurations
 .idea
 .vscode
+.fleet
 
-# Misc
-assets/js/dist
-
-# User custom
-**/.DS_Store
+# Vercel machine specific config
 .vercel
+
+# macOS specific ignores
+**/.DS_Store
