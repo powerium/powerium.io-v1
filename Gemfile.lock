@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/powerium/jekyll-theme-powerium.git
-  revision: 28e073f49bf4f6e7465a3e5e9c5947c68ff64e2d
+  revision: ea2ce31bb932c64baed73f39c6702393288fb90a
   specs:
     jekyll-theme-chirpy (6.5.0)
       jekyll (~> 4.3)
@@ -27,6 +27,7 @@ GEM
     ffi (1.16.3)
     forwardable-extended (2.6.0)
     google-protobuf (3.25.3-x86_64-darwin)
+    google-protobuf (3.25.3-x86_64-linux)
     html-proofer (4.4.3)
       addressable (~> 2.3)
       mercenary (~> 0.3)
@@ -81,6 +82,8 @@ GEM
     mercenary (0.4.0)
     nokogiri (1.16.2-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.16.2-x86_64-linux)
+      racc (~> 1.4)
     parallel (1.24.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
@@ -95,6 +98,8 @@ GEM
     safe_yaml (1.0.5)
     sass-embedded (1.71.0-x86_64-darwin)
       google-protobuf (~> 3.25)
+    sass-embedded (1.71.0-x86_64-linux-gnu)
+      google-protobuf (~> 3.25)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     typhoeus (1.4.1)
@@ -106,6 +111,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   html-proofer (~> 4.4)
