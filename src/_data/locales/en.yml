@@ -33,6 +33,7 @@ copyright:
     template: This post is licensed under :LICENSE_NAME by the author.
     name: CC BY-SA 4.0
     link: https://creativecommons.org/licenses/by-sa/4.0/
+
   # Displayed in the footer
   brief: Some rights reserved.
   verbose: >-

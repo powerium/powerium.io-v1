@@ -23,8 +23,8 @@ be honored.
 
 Besides, this site will not be made possible without numerous other open source
 projects. They are enshrined under
-[Dependency graph](https://github.com/powerium/powerium.io/network/dependencies).
-A big thank you to all of the open source contributors and maintainers!
+[Dependencies](https://github.com/powerium/powerium.io/network/dependencies). A
+big thank you to all of the open source maintainers!
 
 ## License
 

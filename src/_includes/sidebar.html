@@ -42,7 +42,7 @@
     </ul>
   </nav>
 
-  {% include body-turnstile.html %}
+  {% include_cached sidebar-turnstile.html %}
 
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
@@ -53,7 +53,7 @@
       <span class="icon-border"></span>
     {% endunless %}
 
-    <a id="contact-email" href="javascript:alert('Please wait for Turnstile verification to complete')" aria-label="email">
+    <a id="contact-email" href="javascript:alert('Please wait for the completion of Turnstile challenge')" aria-label="email">
       <i class="fas fa-envelope"></i>
     </a>
 

@@ -22,7 +22,7 @@ title: powerium.io # the main title
 tagline: compilation of blogs written by @powersagitar # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
-  This site compiles all blogs @powersagitar has ever written.
+  A compilation of blogs written by @powersagitar.
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -75,7 +75,7 @@ theme_mode: # [light | dark]
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-# img_cdn: "https://chirpy-img.netlify.app"
+img_cdn: "https://powerium.io/"
 
 # the avatar on sidebar, support local or CORS resources
 avatar: "/assets/img/favicons/src.svg"

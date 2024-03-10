@@ -24,3 +24,6 @@ assets/js/dist
 # User custom
 **/.DS_Store
 .vercel
+
+# macOS specific ignores
+**/.DS_Store
